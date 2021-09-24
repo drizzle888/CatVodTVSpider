@@ -12,7 +12,7 @@
 ----
 本工程是一个完整的AndroidStudio工程，请你用AS打开编辑。 
 
-工程调试完毕后要需要导出生成jar文件配合软件使用，执行根目录下的 `buildAndGenJar.bat` 会在同目录生成一个名为`custom_spider.jar`的jar文件，这个文件就是我们最终要是用的代码包。
+工程调试完毕后要需要导出生成jar文件配合软件使用，执行根目录下的 `buildAndGenJar.bat` 会在`jar`目录生成一个名为`custom_spider.jar`的jar文件，这个文件就是我们最终要是用的代码包。
 
 ### 代码包食用方式
 ----
