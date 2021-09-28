@@ -25,13 +25,13 @@
 
 ### 如何在自定义配置中调用我们代码包中的Spider
 ----
-同样在自定义json中加入相应的播放源即可，**type=3, api对应你代码工程中自定义的爬虫类名，例如实例工程中的`Aidi`**
+同样在自定义json中加入相应的播放源即可，**type=3, api对应你代码工程中自定义的爬虫类名（api必须是`csp_`开头），例如实例工程中的`Aidi`**
 ```json
 {
-    "key": "adys_diy",
+    "key": "csp_Aidi",
     "name": "爱迪",
     "type": 3,
-    "api": "Aidi",
+    "api": "csp_Aidi",
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1

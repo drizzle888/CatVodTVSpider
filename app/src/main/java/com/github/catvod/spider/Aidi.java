@@ -28,6 +28,11 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Demo for spider
+ * <p>
+ * Author: CatVod
+ */
 public class Aidi extends Spider {
     private static final String siteUrl = "https://aidi.tv";
     private static final String siteHost = "aidi.tv";

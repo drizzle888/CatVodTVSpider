@@ -77,4 +77,23 @@ public abstract class Spider {
     public String playerContent(String flag, String id, List<String> vipFlags) {
         return "";
     }
+
+    /**
+     * webview解析时使用 可自定义判断当前加载的 url 是否是视频
+     *
+     * @param url
+     * @return
+     */
+    public boolean isVideoFormat(String url) {
+        return false;
+    }
+
+    /**
+     * 是否手动检测webview中加载的url
+     *
+     * @return
+     */
+    public boolean manualVideoCheck() {
+        return false;
+    }
 }
