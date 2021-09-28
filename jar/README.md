@@ -34,5 +34,14 @@
   "searchable": 1,
   "quickSearch": 0,
   "filterable": 1
+},
+{
+  "key": "csp_Auete",
+  "name": "Auete",
+  "type": 3,
+  "api": "csp_Auete",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
 }
 ```
