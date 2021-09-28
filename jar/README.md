@@ -25,5 +25,14 @@
   "searchable": 1,
   "quickSearch": 0,
   "filterable": 1
+},
+{
+  "key": "csp_EPang",
+  "name": "阿房影视",
+  "type": 3,
+  "api": "csp_EPang",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
 }
 ```
