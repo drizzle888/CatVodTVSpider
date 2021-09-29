@@ -2,6 +2,7 @@ package com.github.catvod.spider;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Base64;
 
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.crawler.SpiderDebug;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Base64;
+
 public class Auete extends Spider {
     private static final String siteUrl = "https://auete.com";
     private static final String siteHost = "auete.com";
@@ -53,7 +54,7 @@ public class Auete extends Spider {
     public void init(Context context) {
         super.init(context);
         try {
-            playerConfig = new JSONObject("{\"dphd\":{\"sh\":\"云播A线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbm3u8\":{\"sh\":\"云播D线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"i8i\":{\"sh\":\"云播E线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"m3u8hd\":{\"sh\":\"云播F线\",\"pu\":\"https://auete.com/api/?url=\",\"sn\":1,\"or\":999},\"languang\":{\"sh\":\"云播G线\",\"pu\":\"https://auete.com/api/?url=\",\"sn\":1,\"or\":999}}");
+            playerConfig = new JSONObject("{\"dphd\":{\"sh\":\"云播A线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"dbm3u8\":{\"sh\":\"云播D线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"i8i\":{\"sh\":\"云播E线\",\"pu\":\"\",\"sn\":0,\"or\":999},\"m3u8hd\":{\"sh\":\"云播F线\",\"pu\":\"https://auete.com/api/?url=\",\"sn\":1,\"or\":999},\"languang\":{\"sh\":\"云播G线\",\"pu\":\"https://auete.com/api/?url=\",\"sn\":1,\"or\":999},\"bpyueyu\":{\"sh\":\"云播粤语\",\"pu\":\"\",\"sn\":0,\"or\":999},\"bpguoyu\":{\"sh\":\"云播国语\",\"pu\":\"\",\"sn\":0,\"or\":999}}");
             filterConfig = new JSONObject("{\"Movie\":[{\"key\":0,\"name\":\"分类\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"喜剧片\",\"v\":\"xjp\"},{\"n\":\"动作片\",\"v\":\"dzp\"},{\"n\":\"爱情片\",\"v\":\"aqp\"},{\"n\":\"科幻片\",\"v\":\"khp\"},{\"n\":\"恐怖片\",\"v\":\"kbp\"},{\"n\":\"惊悚片\",\"v\":\"jsp\"},{\"n\":\"战争片\",\"v\":\"zzp\"},{\"n\":\"剧情片\",\"v\":\"jqp\"}]}],\"Tv\":[{\"key\":0,\"name\":\"分类\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"美剧\",\"v\":\"oumei\"},{\"n\":\"韩剧\",\"v\":\"hanju\"},{\"n\":\"日剧\",\"v\":\"riju\"},{\"n\":\"泰剧\",\"v\":\"yataiju\"},{\"n\":\"网剧\",\"v\":\"wangju\"},{\"n\":\"台剧\",\"v\":\"taiju\"},{\"n\":\"国产\",\"v\":\"neidi\"},{\"n\":\"港剧\",\"v\":\"tvbgj\"}]}],\"Zy\":[{\"key\":0,\"name\":\"分类\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"国综\",\"v\":\"guozong\"},{\"n\":\"韩综\",\"v\":\"hanzong\"},{\"n\":\"美综\",\"v\":\"meizong\"}]}],\"Dm\":[{\"key\":0,\"name\":\"分类\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"动画\",\"v\":\"donghua\"},{\"n\":\"日漫\",\"v\":\"riman\"},{\"n\":\"国漫\",\"v\":\"guoman\"},{\"n\":\"美漫\",\"v\":\"meiman\"}]}],\"qita\":[{\"key\":0,\"name\":\"分类\",\"value\":[{\"n\":\"全部\",\"v\":\"\"},{\"n\":\"纪录片\",\"v\":\"Jlp\"},{\"n\":\"经典片\",\"v\":\"Jdp\"},{\"n\":\"经典剧\",\"v\":\"Jdj\"},{\"n\":\"网大电影\",\"v\":\"wlp\"},{\"n\":\"国产老电影\",\"v\":\"laodianying\"}]}]}");
         } catch (JSONException e) {
             SpiderDebug.log(e);
@@ -293,21 +294,45 @@ public class Auete extends Spider {
             String desc = doc.select("div.message>p").get(list1.size()-1).text();
             String category = "", area = "", year = "", remark = "", director = "", actor = "";
             Elements span_text_muted = doc.select("div.message>p");
-            for (int i = 0; i < span_text_muted.size()-1; i++) {
+            for (int i = 0; i < span_text_muted.size()-2; i++) {
                 Element text = span_text_muted.get(i);
                 String info = text.text();
                 if (info.contains("分类")) {
-                    category = text.text().split(": ")[1];
+                    try {
+                        category = text.text().split(": ")[1];
+                        } catch (Exception e) {
+                        category = "";
+                        }
                 } else if (info.contains("年份")) {
-                    year = text.text().split(": ")[1];
+                    try {
+                        year = text.text().split(": ")[1];
+                    } catch (Exception e) {
+                        year = "";
+                    }
                 } else if (info.contains("地区")) {
-                    area = text.text().split(": ")[1];
+                    try {
+                        area = text.text().split(": ")[1];
+                    } catch (Exception e) {
+                        area = "";
+                    }
                 } else if (info.contains("影片备注")) {
-                    remark = text.text().split(": ")[1];
+                    try {
+                        remark = text.text().split(": ")[1];
+                    } catch (Exception e) {
+                        remark = "";
+                    }
                 } else if (info.contains("导演")) {
-                    director = text.text().split(": ")[1];
+                    try {
+                        director = text.text().split(": ")[1];
+                    } catch (Exception e) {
+                        director = "";
+                    }
                 } else if (info.contains("主演")) {
-                    actor = text.text().split(": ")[1];
+                    try {
+                        actor = text.text().split(": ")[1];
+                    } catch (Exception e) {
+                        actor = "";
+                    }
                 }
             }
 
@@ -348,7 +373,7 @@ public class Auete extends Spider {
             for (int i = 0; i < sources.size(); i++) {
                 Element source = sources.get(i);
                 //System.out.println(sources.text().split("：")[0].split("』")[1]);
-                String sourceName = source.text().split("线：")[0].split("』")[1]+"线";
+                String sourceName = source.text().split("』")[1].split("：")[0];
                 boolean found = false;
                 for (Iterator<String> it = playerConfig.keys(); it.hasNext(); ) {
                     String flag = it.next();
@@ -435,8 +460,9 @@ public class Auete extends Spider {
                                 String[] plist1 =player.split("\\(");
                                 String[] plist2 = plist1[1].split("\\)");
                                 // 解码
-                                byte[] base64Data = Base64.getDecoder().decode(plist2[0]);
-                                player = new String(base64Data, "utf-8");
+                                player = new String(Base64.decode(plist2[0].getBytes(), Base64.DEFAULT));
+                                //byte[] base64Data = Base64.getDecoder().decode(plist2[0]);
+                                //player = new String(base64Data, "utf-8");
                             }
                         }
                         if (variable.contains("pn")) {
