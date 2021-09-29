@@ -382,13 +382,15 @@ public class Cokemv extends Spider {
     public String playerContent(String flag, String id, List<String> vipFlags) {
         try {
             //定义播放用的headers
-            HashMap<String, String> headersP = new HashMap<>();
-            headersP.put("Host", "cokemv.co");
-            headersP.put("origin", "https://cokemv.me");
-            headersP.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36");
-            headersP.put("Accept", "*/*");
-            headersP.put("Accept-encoding", "gzip, deflate");
-            headersP.put("Accept-Language", "zh-CN,zh;q=0.9,en-US;q=0.3,en;q=0.7");
+            JSONObject headers = new JSONObject();
+            //headers.put("Host", " cokemv.co");
+            headers.put("origin", " https://cokemv.me");
+            headers.put("User-Agent", " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36");
+            headers.put("Accept", " */*");
+            headers.put("Accept-Language", " zh-CN,zh;q=0.9,en-US;q=0.3,en;q=0.7");
+            headers.put("Accept-Encoding", " gzip, deflate");
+
+
             // 播放页 url
             String url = siteUrl + "/vodplay/" + id + ".html";
             SpiderUrl su = new SpiderUrl(url, getHeaders(url));
@@ -410,7 +412,7 @@ public class Cokemv extends Spider {
                         result.put("parse", pCfg.getInt("sn"));
                         result.put("playUrl", playUrl);
                         result.put("url", videoUrl);
-                        result.put("header", headersP);
+                        result.put("header", headers.toString());
                     }
                     break;
                 }
