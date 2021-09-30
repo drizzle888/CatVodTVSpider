@@ -43,5 +43,14 @@
   "searchable": 1,
   "quickSearch": 0,
   "filterable": 1
+},
+{
+  "key": "csp_Cokemv",
+  "name": "Cokemv",
+  "type": 3,
+  "api": "csp_Cokemv",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
 }
 ```
