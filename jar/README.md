@@ -52,5 +52,23 @@
   "searchable": 1,
   "quickSearch": 0,
   "filterable": 1
+},
+{
+  "key": "csp_Buka",
+  "name": "真不卡(测试)",
+  "type": 3,
+  "api": "csp_Buka",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
+},
+{
+  "key": "csp_Ysgc",
+  "name": "影视工厂",
+  "type": 3,
+  "api": "csp_Ysgc",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
 }
 ```
