@@ -58,7 +58,7 @@
   "name": "真不卡(测试)",
   "type": 3,
   "api": "csp_Buka",
-  "searchable": 1,
+  "searchable": 0,
   "quickSearch": 0,
   "filterable": 1
 },
