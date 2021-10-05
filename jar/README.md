@@ -79,5 +79,14 @@
   "searchable": 1,
   "quickSearch": 0,
   "filterable": 0
+},
+{
+  "key": "csp_Ubo",
+  "name": "U播影视",
+  "type": 3,
+  "api": "csp_Ubo",
+  "searchable": 1,
+  "quickSearch": 0,
+  "filterable": 1
 }
 ```
