@@ -4,7 +4,7 @@
 思维没有边界 一切皆有可能
 ```
 
-本工程最终食用需配合 猫影视TV新版（一下简称为软件） **v2.0.0**及以上版本。[**下载**](https://wwi.lanzoui.com/iy7W1ulutpa) 代号：**miao**
+本工程最终食用需配合 猫影视TV新版（一下简称为软件） **v2.0.0**及以上版本。[**下载**](https://wwi.lanzoui.com/izRMJv45llc) 代号：**miao**
 
 ![logo](app/src/main/res/drawable-xhdpi/app_icon.png)
 
