@@ -42,6 +42,21 @@
 }
 ```
 
+Json解析扩展（需v2.0.2及以上版本）
+通过jar包可以实现json解析并发、轮询等相关功能，**并发和轮询的json解析地址默认为解析地址列表中的所有json解析（即type=1），配置方式**
+```json
+{
+    "name": "Json并发",
+    "type": 2,
+    "url": "Parallel"
+},
+{
+    "name": "Json轮询",
+    "type": 2,
+    "url": "Sequence"
+}
+```
+
 ## 基础类
 ----
 
