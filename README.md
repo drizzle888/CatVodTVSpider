@@ -8,6 +8,8 @@
 
 ![logo](app/src/main/res/drawable-xhdpi/app_icon.png)
 
+### [TG交流群](https://t.me/catvodtv)
+
 ### 欢迎各路大佬踊跃提PR，分享爬虫代码。
 
 ### 这里是用户分享的爬虫代码打包的共享包，可以配合自定义配置，直接食用 [custom_spider.jar](/jar/)
