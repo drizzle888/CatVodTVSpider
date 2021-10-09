@@ -7,86 +7,105 @@
 ```json
 
 "spider": "https://github.com/catvod/CatVodTVSpider/blob/master/jar/custom_spider.jar?raw=true",
-
-{
-  "key": "csp_Aidi",
-  "name": "爱迪",
-  "type": 3,
-  "api": "csp_Aidi",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_Enlienli",
-  "name": "嗯哩嗯哩",
-  "type": 3,
-  "api": "csp_Enlienli",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_EPang",
-  "name": "阿房影视(已废弃)",
-  "type": 3,
-  "api": "csp_EPang",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_Auete",
-  "name": "Auete",
-  "type": 3,
-  "api": "csp_Auete",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_Cokemv",
-  "name": "Cokemv",
-  "type": 3,
-  "api": "csp_Cokemv",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_Buka",
-  "name": "真不卡(测试)",
-  "type": 3,
-  "api": "csp_Buka",
-  "searchable": 0,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_Ysgc",
-  "name": "影视工厂",
-  "type": 3,
-  "api": "csp_Ysgc",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-},
-{
-  "key": "csp_N0ys",
-  "name": "90影视",
-  "type": 3,
-  "api": "csp_N0ys",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 0
-},
-{
-  "key": "csp_Ubo",
-  "name": "U播影视",
-  "type": 3,
-  "api": "csp_Ubo",
-  "searchable": 1,
-  "quickSearch": 0,
-  "filterable": 1
-}
+......
+"sites": [
+......
+  {
+    "key": "csp_Aidi",
+    "name": "爱迪",
+    "type": 3,
+    "api": "csp_Aidi",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Enlienli",
+    "name": "嗯哩嗯哩",
+    "type": 3,
+    "api": "csp_Enlienli",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_EPang",
+    "name": "阿房影视(已废弃)",
+    "type": 3,
+    "api": "csp_EPang",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Auete",
+    "name": "Auete",
+    "type": 3,
+    "api": "csp_Auete",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Cokemv",
+    "name": "Cokemv",
+    "type": 3,
+    "api": "csp_Cokemv",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Buka",
+    "name": "真不卡(测试)",
+    "type": 3,
+    "api": "csp_Buka",
+    "searchable": 0,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Ysgc",
+    "name": "影视工厂",
+    "type": 3,
+    "api": "csp_Ysgc",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_N0ys",
+    "name": "90影视",
+    "type": 3,
+    "api": "csp_N0ys",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 0
+  },
+  {
+    "key": "csp_Ubo",
+    "name": "U播影视",
+    "type": 3,
+    "api": "csp_Ubo",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  }
+......
+],
+......
+"parses": [
+......
+  {
+    "name": "Json并发",
+    "type": 2,
+    "url": "Parallel"
+  },
+  {
+    "name": "Json轮询",
+    "type": 2,
+    "url": "Sequence"
+  }
+......  
+]
 ```
