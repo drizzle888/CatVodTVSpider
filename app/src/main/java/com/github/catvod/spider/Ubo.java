@@ -26,7 +26,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * U播影视
+ * U播影视 弃用
  * <p>
  * Author: 小黄瓜
  */
