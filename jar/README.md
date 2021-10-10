@@ -84,9 +84,18 @@
   },
   {
     "key": "csp_Ubo",
-    "name": "U播影视",
+    "name": "U播影视(已废弃)",
     "type": 3,
     "api": "csp_Ubo",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Nekk",
+    "name": "9E看看",
+    "type": 3,
+    "api": "csp_Nekk",
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
