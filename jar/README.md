@@ -99,6 +99,15 @@
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
+  },
+  {
+    "key": "csp_EPangApp",
+    "name": "阿房影视App",
+    "type": 3,
+    "api": "csp_EPangApp",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
   }
 ......
 ],
