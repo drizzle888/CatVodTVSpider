@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class XPath extends Spider {
 
@@ -38,51 +39,66 @@ public class XPath extends Spider {
     @Override
     public String homeContent(boolean filter) {
         try {
-            String webUrl = rule.getHomeUrl();
-            SpiderDebug.log(webUrl);
-            SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
-            SpiderReqResult srr = SpiderReq.get(su);
             JSONObject result = new JSONObject();
             JSONArray classes = new JSONArray();
-            JXDocument doc = JXDocument.create(srr.content);
-            List<JXNode> navNodes = doc.selN(rule.getCateNode());
-            for (int i = 0; i < navNodes.size(); i++) {
-                String name = navNodes.get(i).selOne(rule.getCateName()).asString().trim();
-                name = rule.getCateNameR(name);
-                String id = navNodes.get(i).selOne(rule.getCateId()).asString().trim();
-                id = rule.getCateIdR(id);
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("type_id", id);
-                jsonObject.put("type_name", name);
-                classes.put(jsonObject);
+            if (rule.getCateManual().size() > 0) {
+                Set<String> keys = rule.getCateManual().keySet();
+                for (String k : keys) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("type_name", k);
+                    jsonObject.put("type_id", rule.getCateManual().get(k));
+                    classes.put(jsonObject);
+                }
             }
-            result.put("class", classes);
             try {
-                if (!rule.getHomeVodNode().isEmpty()) {
-                    JSONArray videos = new JSONArray();
-                    List<JXNode> vodNodes = doc.selN(rule.getHomeVodNode());
-                    for (int i = 0; i < vodNodes.size(); i++) {
-                        String name = vodNodes.get(i).selOne(rule.getHomeVodName()).asString().trim();
-                        name = rule.getHomeVodNameR(name);
-                        String id = vodNodes.get(i).selOne(rule.getHomeVodId()).asString().trim();
-                        id = rule.getHomeVodIdR(id);
-                        String pic = vodNodes.get(i).selOne(rule.getHomeVodImg()).asString().trim();
-                        pic = rule.getHomeVodImgR(pic);
-                        pic = fixUrl(webUrl, pic);
-                        String mark = vodNodes.get(i).selOne(rule.getHomeVodMark()).asString().trim();
-                        mark = rule.getHomeVodMarkR(mark);
-                        JSONObject v = new JSONObject();
-                        v.put("vod_id", id);
-                        v.put("vod_name", name);
-                        v.put("vod_pic", pic);
-                        v.put("vod_remarks", mark);
-                        videos.put(v);
+                String webUrl = rule.getHomeUrl();
+                SpiderDebug.log(webUrl);
+                SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
+                SpiderReqResult srr = SpiderReq.get(su);
+                JXDocument doc = JXDocument.create(srr.content);
+                if (rule.getCateManual().size() == 0) {
+                    List<JXNode> navNodes = doc.selN(rule.getCateNode());
+                    for (int i = 0; i < navNodes.size(); i++) {
+                        String name = navNodes.get(i).selOne(rule.getCateName()).asString().trim();
+                        name = rule.getCateNameR(name);
+                        String id = navNodes.get(i).selOne(rule.getCateId()).asString().trim();
+                        id = rule.getCateIdR(id);
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("type_id", id);
+                        jsonObject.put("type_name", name);
+                        classes.put(jsonObject);
                     }
-                    result.put("list", videos);
+                }
+                if (!rule.getHomeVodNode().isEmpty()) {
+                    try {
+                        JSONArray videos = new JSONArray();
+                        List<JXNode> vodNodes = doc.selN(rule.getHomeVodNode());
+                        for (int i = 0; i < vodNodes.size(); i++) {
+                            String name = vodNodes.get(i).selOne(rule.getHomeVodName()).asString().trim();
+                            name = rule.getHomeVodNameR(name);
+                            String id = vodNodes.get(i).selOne(rule.getHomeVodId()).asString().trim();
+                            id = rule.getHomeVodIdR(id);
+                            String pic = vodNodes.get(i).selOne(rule.getHomeVodImg()).asString().trim();
+                            pic = rule.getHomeVodImgR(pic);
+                            pic = fixUrl(webUrl, pic);
+                            String mark = vodNodes.get(i).selOne(rule.getHomeVodMark()).asString().trim();
+                            mark = rule.getHomeVodMarkR(mark);
+                            JSONObject v = new JSONObject();
+                            v.put("vod_id", id);
+                            v.put("vod_name", name);
+                            v.put("vod_pic", pic);
+                            v.put("vod_remarks", mark);
+                            videos.put(v);
+                        }
+                        result.put("list", videos);
+                    } catch (Exception e) {
+                        SpiderDebug.log(e);
+                    }
                 }
             } catch (Exception e) {
                 SpiderDebug.log(e);
             }
+            result.put("class", classes);
             return result.toString();
         } catch (
                 Exception e) {

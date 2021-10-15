@@ -328,7 +328,7 @@ public class XPathRule {
             rule.cateNameR = getPattern(jsonObj, "cateNameR");
             rule.cateId = jsonObj.optString("cateId").trim();
             rule.cateIdR = getPattern(jsonObj, "cateIdR");
-            JSONObject navs = jsonObj.optJSONObject("navManual");
+            JSONObject navs = jsonObj.optJSONObject("cateManual");
             if (navs != null) {
                 Iterator<String> keys = navs.keys();
                 while (keys.hasNext()) {
