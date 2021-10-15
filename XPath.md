@@ -4,7 +4,7 @@
 ```json
 {
     "key": "csp_xpath_94sm",
-    "name": "94神马",
+    "name": "94神马(XPath)",
     "type": 3,
     "api": "csp_XPath",
     "searchable": 1,
