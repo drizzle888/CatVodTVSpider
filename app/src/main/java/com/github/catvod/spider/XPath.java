@@ -231,14 +231,6 @@ public class XPath extends Spider {
                     SpiderDebug.log(e);
                 }
             }
-            if (!rule.getDetailActor().isEmpty()) {
-                try {
-                    actor = vodNode.selOne(rule.getDetailActor()).asString().trim();
-                    actor = rule.getDetailActorR(actor);
-                } catch (Exception e) {
-                    SpiderDebug.log(e);
-                }
-            }
             if (!rule.getDetailDirector().isEmpty()) {
                 try {
                     director = vodNode.selOne(rule.getDetailDirector()).asString().trim();
