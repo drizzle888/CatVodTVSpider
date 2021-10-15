@@ -14,6 +14,10 @@ public abstract class Spider {
     public void init(Context context) {
     }
 
+    public void init(Context context, String extend) {
+        init(context);
+    }
+
     /**
      * 首页数据内容
      *
