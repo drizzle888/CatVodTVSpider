@@ -125,7 +125,7 @@ demo配置写的比较细，不一定所有字段都要有，具体还是自己�
 	"playUa": "",
     // 搜索地址
 	"searchUrl": "http://www.9rmb.com/search?wd={wd}",
-    // 同上面的homeVod字段 搜索结果中的视频信息
+    // 同上面的homeVod字段 搜索结果中的视频信息, 这里有对苹果cms suggest搜索接口的特殊支持，参考示例中的极品影视
 	"scVodNode": "//div[@class='movie-item']/a",
 	"scVodName": "/@title",
 	"scVodId": "/@href",
