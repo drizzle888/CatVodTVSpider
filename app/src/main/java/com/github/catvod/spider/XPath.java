@@ -145,7 +145,7 @@ public class XPath extends Spider {
                 String mark = "";
                 if (!rule.getCateVodMark().isEmpty()) {
                     try {
-                        vodNodes.get(i).selOne(rule.getCateVodMark()).asString().trim();
+                        mark = vodNodes.get(i).selOne(rule.getCateVodMark()).asString().trim();
                         mark = rule.getCateVodMarkR(mark);
                     } catch (Exception e) {
                         SpiderDebug.log(e);
@@ -281,9 +281,25 @@ public class XPath extends Spider {
                     id = rule.getDetailUrlIdR(id);
                     vodItems.add(name + "$" + id);
                 }
+                // 排除播放列表为空的播放源
+                if (vodItems.size() == 0 && playFrom.size() > i) {
+                    playFrom.set(i, "");
+                }
                 playList.add(TextUtils.join("#", vodItems));
             }
-
+            // 排除播放列表为空的播放源
+            for (int i = playFrom.size() - 1; i >= 0; i--) {
+                if (playFrom.get(i).isEmpty())
+                    playFrom.remove(i);
+            }
+            for (int i = playList.size() - 1; i >= 0; i--) {
+                if (playList.get(i).isEmpty())
+                    playList.remove(i);
+            }
+            for (int i = playList.size() - 1; i >= 0; i--) {
+                if (i >= playFrom.size())
+                    playList.remove(i);
+            }
             String vod_play_from = TextUtils.join("$$$", playFrom);
             String vod_play_url = TextUtils.join("$$$", playList);
             vod.put("vod_play_from", vod_play_from);
@@ -389,7 +405,10 @@ public class XPath extends Spider {
 
     private String fixUrl(String base, String src) {
         try {
-            if (!src.contains("://")) {
+            if (src.startsWith("//")) {
+                Uri parse = Uri.parse(base);
+                src = parse.getScheme() + ":" + src;
+            } else if (!src.contains("://")) {
                 Uri parse = Uri.parse(base);
                 src = parse.getScheme() + "://" + parse.getHost() + src;
             }
