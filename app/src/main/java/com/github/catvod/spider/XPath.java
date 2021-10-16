@@ -179,7 +179,6 @@ public class XPath extends Spider {
             SpiderDebug.log(webUrl);
             SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
             SpiderReqResult srr = SpiderReq.get(su);
-            JSONArray videos = new JSONArray();
             JXDocument doc = JXDocument.create(srr.content);
             JXNode vodNode = doc.selNOne(rule.getDetailNode());
 
@@ -344,25 +343,56 @@ public class XPath extends Spider {
             SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
             SpiderReqResult srr = SpiderReq.get(su);
             JSONObject result = new JSONObject();
-            JXDocument doc = JXDocument.create(srr.content);
             JSONArray videos = new JSONArray();
-            List<JXNode> vodNodes = doc.selN(rule.getSearchVodNode());
-            for (int i = 0; i < vodNodes.size(); i++) {
-                String name = vodNodes.get(i).selOne(rule.getSearchVodName()).asString().trim();
-                name = rule.getSearchVodNameR(name);
-                String id = vodNodes.get(i).selOne(rule.getSearchVodId()).asString().trim();
-                id = rule.getSearchVodIdR(id);
-                String pic = vodNodes.get(i).selOne(rule.getSearchVodImg()).asString().trim();
-                pic = rule.getSearchVodImgR(pic);
-                pic = fixUrl(webUrl, pic);
-                String mark = vodNodes.get(i).selOne(rule.getSearchVodMark()).asString().trim();
-                mark = rule.getSearchVodMarkR(mark);
-                JSONObject v = new JSONObject();
-                v.put("vod_id", id);
-                v.put("vod_name", name);
-                v.put("vod_pic", pic);
-                v.put("vod_remarks", mark);
-                videos.put(v);
+            // add maccms suggest search api support
+            if (rule.getSearchVodNode().startsWith("json:")) {
+                String[] node = rule.getSearchVodNode().substring(5).split(">");
+                JSONObject data = new JSONObject(srr.content);
+                for (int i = 0; i < node.length; i++) {
+                    if (i == node.length - 1) {
+                        JSONArray vodArray = data.getJSONArray(node[i]);
+                        for (int j = 0; j < vodArray.length(); j++) {
+                            JSONObject vod = vodArray.getJSONObject(j);
+                            String name = vod.optString(rule.getSearchVodName()).trim();
+                            name = rule.getSearchVodNameR(name);
+                            String id = vod.optString(rule.getSearchVodId()).trim();
+                            id = rule.getSearchVodIdR(id);
+                            String pic = vod.optString(rule.getSearchVodImg()).trim();
+                            pic = rule.getSearchVodImgR(pic);
+                            pic = fixUrl(webUrl, pic);
+                            String mark = vod.optString(rule.getSearchVodMark()).trim();
+                            mark = rule.getSearchVodMarkR(mark);
+                            JSONObject v = new JSONObject();
+                            v.put("vod_id", id);
+                            v.put("vod_name", name);
+                            v.put("vod_pic", pic);
+                            v.put("vod_remarks", mark);
+                            videos.put(v);
+                        }
+                    } else {
+                        data = data.getJSONObject(node[i]);
+                    }
+                }
+            } else {
+                JXDocument doc = JXDocument.create(srr.content);
+                List<JXNode> vodNodes = doc.selN(rule.getSearchVodNode());
+                for (int i = 0; i < vodNodes.size(); i++) {
+                    String name = vodNodes.get(i).selOne(rule.getSearchVodName()).asString().trim();
+                    name = rule.getSearchVodNameR(name);
+                    String id = vodNodes.get(i).selOne(rule.getSearchVodId()).asString().trim();
+                    id = rule.getSearchVodIdR(id);
+                    String pic = vodNodes.get(i).selOne(rule.getSearchVodImg()).asString().trim();
+                    pic = rule.getSearchVodImgR(pic);
+                    pic = fixUrl(webUrl, pic);
+                    String mark = vodNodes.get(i).selOne(rule.getSearchVodMark()).asString().trim();
+                    mark = rule.getSearchVodMarkR(mark);
+                    JSONObject v = new JSONObject();
+                    v.put("vod_id", id);
+                    v.put("vod_name", name);
+                    v.put("vod_pic", pic);
+                    v.put("vod_remarks", mark);
+                    videos.put(v);
+                }
             }
             result.put("list", videos);
             return result.toString();
