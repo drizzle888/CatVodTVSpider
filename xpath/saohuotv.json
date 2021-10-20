@@ -28,7 +28,7 @@
   "dtDesc": "//p[contains(@class,'show_part')]/text()",
   "dtFromNode": "//ul[@class='from_list']/li",
   "dtFromName": "/text()",
-  "dtUrlNode": "//ul[@class='large_list']/li",
+  "dtUrlNode": "//ul[@class='play_list']/li",
   "dtUrlSubNode": "/a",
   "dtUrlId": "@href",
   "dtUrlIdR": "/play/(\\S+).html",
