@@ -69,7 +69,7 @@
 
 **影视大全搜索接口支持**（2021.10.20 by 小黄瓜） 接口杂乱，搜出来能不能播随缘了。
 
-代码里读取[影视大全配置json](https://pj567.coding.net/p/source/d/source/git/raw/master/mobile/config.json)中的搜索接口
+代码里读取<a href="https://pj567.coding.net/p/source/d/source/git/raw/master/mobile/config.json" target="_blank">影视大全配置json</a>中的搜索接口
 
 所以你需要在自定义配置中增加相关搜索站配置，ext字段填影视大全配置json中的`sourceName`，当前支持type为AppV0、AppTV、aiKanTv的搜索接口。
 
