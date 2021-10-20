@@ -94,6 +94,26 @@
     "quickSearch": 1,
     "filterable": 0,
     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/duboku.json"
+},
+{
+     "key": "csp_xpath_saohuotv",
+     "name": "骚火电影(XPath)",
+     "type": 3,
+     "api": "csp_XPath",
+     "searchable": 1,
+     "quickSearch": 1,
+     "filterable": 0,
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/saohuotv1.json"
+},
+{
+     "key": "csp_xpath_dm84",
+     "name": "动漫巴士(XPath)",
+     "type": 3,
+     "api": "csp_XPath",
+     "searchable": 1,
+     "quickSearch": 1,
+     "filterable": 0,
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/dm84.json"
 }
 ```
 
