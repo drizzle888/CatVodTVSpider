@@ -29,16 +29,15 @@ public class XPath extends Spider {
         super.init(context);
     }
 
-    private XPathRule rule = null;
-
     public void init(Context context, String extend) {
         super.init(context, extend);
-        rule = XPathRule.fromJson(extend);
+        this.ext = extend;
     }
 
     @Override
     public String homeContent(boolean filter) {
         try {
+            fetchRule();
             JSONObject result = new JSONObject();
             JSONArray classes = new JSONArray();
             if (rule.getCateManual().size() > 0) {
@@ -52,9 +51,7 @@ public class XPath extends Spider {
             }
             try {
                 String webUrl = rule.getHomeUrl();
-                SpiderDebug.log(webUrl);
-                SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
-                SpiderReqResult srr = SpiderReq.get(su);
+                SpiderReqResult srr = fetch(webUrl);
                 JXDocument doc = JXDocument.create(srr.content);
                 if (rule.getCateManual().size() == 0) {
                     List<JXNode> navNodes = doc.selN(rule.getCateNode());
@@ -107,7 +104,7 @@ public class XPath extends Spider {
         return "";
     }
 
-    private HashMap<String, String> getHeaders(String url) {
+    protected HashMap<String, String> getHeaders(String url) {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("User-Agent", rule.getUa().isEmpty()
                 ? "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36"
@@ -118,6 +115,7 @@ public class XPath extends Spider {
     @Override
     public String homeVideoContent() {
         try {
+            fetchRule();
         } catch (Exception e) {
             SpiderDebug.log(e);
         }
@@ -127,10 +125,9 @@ public class XPath extends Spider {
     @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) {
         try {
+            fetchRule();
             String webUrl = rule.getCateUrl().replace("{cateId}", tid).replace("{catePg}", pg);
-            SpiderDebug.log(webUrl);
-            SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
-            SpiderReqResult srr = SpiderReq.get(su);
+            SpiderReqResult srr = fetch(webUrl);
             JSONArray videos = new JSONArray();
             JXDocument doc = JXDocument.create(srr.content);
             List<JXNode> vodNodes = doc.selN(rule.getCateVodNode());
@@ -175,10 +172,9 @@ public class XPath extends Spider {
     @Override
     public String detailContent(List<String> ids) {
         try {
+            fetchRule();
             String webUrl = rule.getDetailUrl().replace("{vid}", ids.get(0));
-            SpiderDebug.log(webUrl);
-            SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
-            SpiderReqResult srr = SpiderReq.get(su);
+            SpiderReqResult srr = fetch(webUrl);
             JXDocument doc = JXDocument.create(srr.content);
             JXNode vodNode = doc.selNOne(rule.getDetailNode());
 
@@ -319,6 +315,7 @@ public class XPath extends Spider {
     @Override
     public String playerContent(String flag, String id, List<String> vipFlags) {
         try {
+            fetchRule();
             String webUrl = rule.getPlayUrl().isEmpty() ? id : rule.getPlayUrl().replace("{playUrl}", id);
             SpiderDebug.log(webUrl);
             JSONObject result = new JSONObject();
@@ -338,6 +335,7 @@ public class XPath extends Spider {
     @Override
     public String searchContent(String key, boolean quick) {
         try {
+            fetchRule();
             String webUrl = rule.getSearchUrl().replace("{wd}", URLEncoder.encode(key));
             SpiderDebug.log(webUrl);
             SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
@@ -437,5 +435,34 @@ public class XPath extends Spider {
             }
         }
         return false;
+    }
+
+    protected String ext = null;
+    protected XPathRule rule = null;
+
+    protected void fetchRule() {
+        if (rule == null) {
+            if (ext != null) {
+                if (ext.startsWith("http")) {
+                    SpiderUrl su = new SpiderUrl(ext, null);
+                    String json = SpiderReq.get(su).content;
+                    rule = XPathRule.fromJson(json);
+                    loadRuleExt(json);
+                } else {
+                    rule = XPathRule.fromJson(ext);
+                    loadRuleExt(ext);
+                }
+            }
+        }
+    }
+
+    protected void loadRuleExt(String json) {
+
+    }
+
+    protected SpiderReqResult fetch(String webUrl) {
+        SpiderDebug.log(webUrl);
+        SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
+        return SpiderReq.get(su);
     }
 }
