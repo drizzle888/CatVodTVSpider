@@ -36,6 +36,16 @@
     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/agefans.json"
 },
 {
+    "key": "csp_xpath_jpyszl",
+    "name": "极品直链(XPath)",
+    "type": 3,
+    "api": "csp_XPathMac",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0,
+    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/jpys.json"
+}
+{
     "key": "csp_xpath_cjt",
     "name": "CJT影视(XPath)",
     "type": 3,
