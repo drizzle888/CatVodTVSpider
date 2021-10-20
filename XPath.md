@@ -103,7 +103,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/saohuotv1.json"
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/saohuotv2.json"
 },
 {
      "key": "csp_xpath_dm84",
