@@ -91,7 +91,7 @@ public class Imaple extends Spider {
             SpiderUrl su = new SpiderUrl(url, getHeaders(url));
             SpiderReqResult srr = SpiderReq.get(su);
             Document doc = Jsoup.parse(srr.content);
-            Elements elements = doc.select("ul.nav-menu>li>a");
+            Elements elements = doc.select("ul.myui-header__menu>li>a");
             JSONArray classes = new JSONArray();
             ArrayList<String> allClass = new ArrayList<>();
             for (Element ele : elements) {
