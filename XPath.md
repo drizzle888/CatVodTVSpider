@@ -124,6 +124,16 @@
     "quickSearch": 1,
     "filterable": 0,
     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/egg.json"
+},
+{
+    "key": "csp_yysdali",
+    "name": "YYDS影视",
+    "type": 3,
+    "api": "csp_YydsAli",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0,
+    "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/yyds.json"
 }
 ```
 
