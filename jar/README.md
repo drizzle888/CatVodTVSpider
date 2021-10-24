@@ -11,33 +11,6 @@
 "sites": [
 ......
   {
-    "key": "csp_Djx",
-    "name": "瓜皮TV(爬虫)",
-    "type": 3,
-    "api": "csp_Djx",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
-    "key": "csp_Imaple",
-    "name": "枫林网(爬虫)",
-    "type": 3,
-    "api": "csp_Imaple",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
-    "key": "csp_Jumi",
-    "name": "剧迷(爬虫)",
-    "type": 3,
-    "api": "csp_Jumi",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
     "key": "csp_Aidi",
     "name": "爱迪",
     "type": 3,
@@ -132,6 +105,33 @@
     "name": "阿房影视App",
     "type": 3,
     "api": "csp_EPangApp",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Djx",
+    "name": "瓜皮TV(爬虫)",
+    "type": 3,
+    "api": "csp_Djx",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Imaple",
+    "name": "枫林网(爬虫)",
+    "type": 3,
+    "api": "csp_Imaple",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
+  },
+  {
+    "key": "csp_Jumi",
+    "name": "剧迷(爬虫)",
+    "type": 3,
+    "api": "csp_Jumi",
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
