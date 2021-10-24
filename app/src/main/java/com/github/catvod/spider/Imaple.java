@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 public class Imaple extends Spider {
 
     private static final String siteUrl = "https://imaple.co/";
-    private static final String siteHost = "imaple";
+    private static final String siteHost = "imaple.co";
 
     protected JSONObject playerConfig;
     protected JSONObject filterConfig;
