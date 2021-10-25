@@ -11,14 +11,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -89,7 +86,7 @@ public class YydsAli extends XPath {
                 SpiderReqResult srr = SpiderReq.postBody("https://api.aliyundrive.com/v2/file/get_share_link_video_preview_play_info", RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString()), headers);
                 JSONArray playList = new JSONObject(srr.content).getJSONObject("video_preview_play_info").getJSONArray("live_transcoding_task_list");
                 String videoUrl = "";
-                String[] orders = new String[]{"HD", "SD"};
+                String[] orders = new String[]{"FHD", "HD", "SD"};
                 for (String or : orders) {
                     for (int i = 0; i < playList.length(); i++) {
                         JSONObject obj = playList.getJSONObject(i);
@@ -98,6 +95,8 @@ public class YydsAli extends XPath {
                             break;
                         }
                     }
+                    if (!videoUrl.isEmpty())
+                        break;
                 }
                 if (videoUrl.isEmpty() && playList.length() > 0) {
                     videoUrl = playList.getJSONObject(0).getString("url");
