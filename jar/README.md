@@ -135,6 +135,15 @@
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
+  },
+  {
+    "key": "csp_Nfx",
+    "name": "NFXHD(爬虫)",
+    "type": 3,
+    "api": "csp_Nfx",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 1
   }
 ......
 ],
