@@ -28,6 +28,10 @@
 ```json 
 "spider": "http://xxx.xxx.xxx/custom_spider.jar"
 ```
+支持jar文件本地缓存（需v2.0.5及以上版本）
+```json 
+"spider": "http://xxx.xxx.xxx/custom_spider.jar;md5;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
 
 ### 如何在自定义配置中调用我们代码包中的Spider
 ----
