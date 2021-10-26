@@ -31,6 +31,8 @@
 支持jar文件本地缓存（需v2.0.5及以上版本）
 ```json 
 "spider": "http://xxx.xxx.xxx/custom_spider.jar;md5;jar文件md5"
+// 例如
+"spider": "https://github.com/catvod/CatVodTVSpider/blob/master/jar/custom_spider.jar?raw=true;md5;c6ed6bc8285f0aca90e7cb3abf7f9caa",
 ```
 
 ### 如何在自定义配置中调用我们代码包中的Spider
