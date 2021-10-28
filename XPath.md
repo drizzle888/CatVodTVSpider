@@ -134,6 +134,16 @@
     "quickSearch": 1,
     "filterable": 0,
     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/yyds.json"
+},
+{
+     "key": "csp_xpath_555",
+     "name": "555电影(XPath)",
+     "type": 3,
+     "api": "csp_XPath",
+     "searchable": 1,
+     "quickSearch": 1,
+     "filterable": 0,
+     "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/555.json"
 }
 ```
 
