@@ -79,7 +79,7 @@ public class XPath extends Spider {
                             pic = rule.getHomeVodImgR(pic);
                             pic = fixUrl(webUrl, pic);
                             String mark = "";
-                            if (!rule.getDetailCate().isEmpty()) {
+                            if (!rule.getHomeVodMark().isEmpty()) {
                                 try {
                                     mark = vodNodes.get(i).selOne(rule.getHomeVodMark()).asString().trim();
                                     mark = rule.getHomeVodMarkR(mark);
