@@ -144,6 +144,16 @@
      "quickSearch": 1,
      "filterable": 0,
      "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/555.json"
+},
+{
+     "key": "csp_xpath_sky4k",
+     "name": "天空4K(XPath)",
+     "type": 3,
+     "api": "csp_XPath",
+     "searchable": 1,
+     "quickSearch": 1,
+     "filterable": 0,
+     "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/sky4k.json"
 }
 ```
 
