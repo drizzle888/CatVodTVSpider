@@ -31,37 +31,11 @@ public class YydsAli extends XPath {
             if (matcher.find()) {
                 String shareId = matcher.group(1);
                 String shareToken = getShareTk(shareId, "");
-                JSONArray rootList = getFileList(shareToken, shareId, "", "root");
-                if (rootList != null && rootList.length() > 0) {
-                    accessTk = "";
-                    for (int i = 0; i < rootList.length(); i++) {
-                        JSONObject item = rootList.getJSONObject(i);
-                        if (item.getString("type").equals("folder")) {
-                            String dirId = item.getString("file_id");
-                            JSONArray fileList = getFileList(shareToken, shareId, "", dirId);
-                            List<String> vodItems = new ArrayList<>();
-                            for (int j = 0; j < fileList.length(); j++) {
-                                JSONObject fileItem = fileList.getJSONObject(j);
-                                if (fileItem.getString("type").equals("file") && !fileItem.getString("file_extension").equals("txt")) {
-                                    String fileId = fileItem.getString("file_id");
-                                    String fileName = fileItem.getString("name");
-                                    vodItems.add(fileName + "$" + shareId + "+" + fileId);
-                                }
-                            }
-                            vod.put("vod_play_from", "阿里云盘");
-                            vod.put("vod_play_url", TextUtils.join("#", vodItems));
-                            break;
-                        } else if (item.getString("type").equals("file")) {
-                            List<String> vodItems = new ArrayList<>();
-                            String fileId = item.getString("file_id");
-                            String fileName = item.getString("name");
-                            vodItems.add(fileName + "$" + shareId + "+" + fileId);
-                            vod.put("vod_play_from", "阿里云盘");
-                            vod.put("vod_play_url", TextUtils.join("#", vodItems));
-                            break;
-                        }
-                    }
-                }
+                ArrayList<String> vodItems = new ArrayList<>();
+                accessTk = "";
+                getFileList(shareToken, shareId, "", "root", vodItems);
+                vod.put("vod_play_from", "阿里云盘");
+                vod.put("vod_play_url", TextUtils.join("#", vodItems));
             }
         } catch (Exception e) {
             SpiderDebug.log(e);
@@ -163,7 +137,7 @@ public class YydsAli extends XPath {
     }
 
 
-    private JSONArray getFileList(String shareTk, String shareId, String sharePwd, String root) {
+    private void getFileList(String shareTk, String shareId, String sharePwd, String root, ArrayList<String> vodItems) {
         try {
             // 取文件夹
             JSONObject json = new JSONObject();
@@ -178,11 +152,25 @@ public class YydsAli extends XPath {
             HashMap<String, String> headers = new HashMap<>();
             headers.put("x-share-token", shareTk);
             SpiderReqResult srr = SpiderReq.postBody("https://api.aliyundrive.com/adrive/v3/file/list", RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString()), headers);
-            return new JSONObject(srr.content).optJSONArray("items");
+            JSONArray rootList = new JSONObject(srr.content).optJSONArray("items");
+            if (rootList != null && rootList.length() > 0) {
+                for (int i = 0; i < rootList.length(); i++) {
+                    JSONObject item = rootList.getJSONObject(i);
+                    if (item.getString("type").equals("folder")) {
+                        String dirId = item.getString("file_id");
+                        getFileList(shareTk, shareId, sharePwd, dirId, vodItems);
+                    } else {
+                        if (item.getString("type").equals("file") && !item.getString("file_extension").equals("txt")) {
+                            String fileId = item.getString("file_id");
+                            String fileName = item.getString("name");
+                            vodItems.add(fileName + "$" + shareId + "+" + fileId);
+                        }
+                    }
+                }
+            }
             // 取文件列表
         } catch (JSONException e) {
             SpiderDebug.log(e);
         }
-        return null;
     }
 }
