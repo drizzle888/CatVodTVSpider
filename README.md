@@ -82,6 +82,7 @@
 
 <details>
 <summary>配置代码 点我展开</summary>
+
 ```json
 {"key":"csp_appys_007影视", "name":"007影视(M)", "type":3, "api":"csp_AppYs","searchable":1,"quickSearch":0,"filterable":1,"ext":"007影视"},
 {"key":"csp_appys_555电影", "name":"555电影(M)", "type":3, "api":"csp_AppYs","searchable":1,"quickSearch":0,"filterable":1,"ext":"555电影"},
