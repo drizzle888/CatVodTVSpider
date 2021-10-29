@@ -1,4 +1,5 @@
 {
+	"author": "涟漪",
 	"ua": "",
 	"homeUrl": "https://movie.sky4k.ga",
 	"cateNode": "//ul[@class='vi-nav swiper-wrapper clearfix']/li/a[contains(@href, '.html') and not(contains(@href, 'topic'))]",
