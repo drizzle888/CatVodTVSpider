@@ -8,7 +8,7 @@ import com.github.catvod.crawler.SpiderDebug;
 import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
-import com.github.catvod.okhttp.SSLSocketFactoryCompat;
+import com.github.catvod.okhttp.SpiderOKClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,12 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import okhttp3.OkHttpClient;
 
 /**
  * M浏览器中的App影视
@@ -396,11 +392,16 @@ public class AppYs extends Spider {
                 JSONArray sources = new JSONObject(json).optJSONArray("data");
                 for (int i = 0; i < sources.length(); i++) {
                     JSONArray list = sources.getJSONObject(i).getJSONArray("list");
+                    String title = sources.getJSONObject(i).getString("title");
+                    Matcher matcher = Pattern.compile(".+\\((.+)\\)").matcher(title);
+                    if (matcher.find()) {
+                        title = matcher.group(1);
+                    }
                     for (int j = 0; j < list.length(); j++) {
                         JSONObject obj = list.getJSONObject(j);
                         String scName = obj.optString("title");
-                        sites.put(scName, obj);
-                        SpiderDebug.log("{\"key\":\"csp_appys_" + scName + "\", \"name\":\"" + scName + "(M)\", \"type\":3, \"api\":\"csp_AppYs\",\"searchable\":1,\"quickSearch\":1,\"filterable\":1,\"ext\":\"" + scName + "\"},");
+                        sites.put(title + "_" + scName, obj);
+                        SpiderDebug.log("{\"key\":\"csp_appys_" + title + "_" + scName + "\", \"name\":\"" + scName + "(M)\", \"type\":3, \"api\":\"csp_AppYs\",\"searchable\":1,\"quickSearch\":0,\"filterable\":1,\"ext\":\"" + title + "_" + scName + "\"},");
                     }
                 }
             } catch (Exception e) {
@@ -424,31 +425,6 @@ public class AppYs extends Spider {
 
     private boolean isBan(String key) {
         return key.equals("伦理") || key.equals("情色") || key.equals("福利");
-    }
-
-    private static OkHttpClient noRedirectClient = null;
-
-    private static OkHttpClient noRedirectClient() {
-        if (noRedirectClient == null) {
-            OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                    .readTimeout(15, TimeUnit.SECONDS)
-                    .writeTimeout(15, TimeUnit.SECONDS)
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .followRedirects(false)
-                    .followSslRedirects(false)
-                    .retryOnConnectionFailure(true)
-                    .sslSocketFactory(new SSLSocketFactoryCompat(SSLSocketFactoryCompat.trustAllCert), SSLSocketFactoryCompat.trustAllCert);
-            noRedirectClient = builder.build();
-        }
-        return noRedirectClient;
-    }
-
-    private String getRedirectLocation(Map<String, List<String>> headers) {
-        if (headers.containsKey("location"))
-            return headers.get("location").get(0);
-        if (headers.containsKey("Location"))
-            return headers.get("Location").get(0);
-        return null;
     }
 
     // M 扩展方法
@@ -916,7 +892,7 @@ public class AppYs extends Spider {
                 result.put("parse", 0);
                 result.put("playUrl", "");
                 result.put("url", playurl);
-                result.put("headers", "{\"User-Agent\":\" Mozilla/5.0\",\"Referer\":\" https://qian.wkfile.com/\"}");
+                result.put("header", "{\"User-Agent\":\" Mozilla/5.0\",\"Referer\":\" https://qian.wkfile.com/\"}");
             } else if (!playurl.contains("=") && playurl.indexOf(".m3u8") > 15 || playurl.indexOf(".mp4") > 15 || playurl.contains("/obj/tos")) {
                 Matcher matcher = Pattern.compile(".*(http.*)").matcher(playurl);
                 if (matcher.find()) {
@@ -929,8 +905,8 @@ public class AppYs extends Spider {
                     result.put("url", playurl);
                 }
             } else if (playurl.contains("=")) {
-                SpiderReqResult resp = SpiderReq.get(noRedirectClient(), new SpiderUrl(playurl, null));
-                String redLoc = getRedirectLocation(resp.headers);
+                SpiderReqResult resp = SpiderReq.get(SpiderOKClient.noRedirectClient(), new SpiderUrl(playurl, null));
+                String redLoc = SpiderOKClient.getRedirectLocation(resp.headers);
                 if (redLoc != null) {
                     String finalurl = "";
                     while (redLoc != null) {
@@ -940,8 +916,8 @@ public class AppYs extends Spider {
                         } else {
                             HashMap<String, String> headers = new HashMap();
                             headers.put("User-Agent", "Mozilla/5.0 Android");
-                            resp = SpiderReq.get(noRedirectClient(), new SpiderUrl(finalurl, headers));
-                            redLoc = getRedirectLocation(resp.headers);
+                            resp = SpiderReq.get(SpiderOKClient.noRedirectClient(), new SpiderUrl(finalurl, headers));
+                            redLoc = SpiderOKClient.getRedirectLocation(resp.headers);
                         }
                     }
                     String realurl = finalurl;

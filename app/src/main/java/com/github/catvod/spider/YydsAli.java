@@ -6,6 +6,7 @@ import com.github.catvod.crawler.SpiderDebug;
 import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
+import com.github.catvod.okhttp.SpiderOKClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,14 +23,32 @@ import okhttp3.RequestBody;
 
 public class YydsAli extends XPath {
     Pattern aliyun = Pattern.compile(">.+aliyundrive.com/s/(\\S+)</a");
+    Pattern aliyunShort = Pattern.compile(">.+alywp.net/(\\S+)</a");
+    Pattern aliyunUrl = Pattern.compile(".+aliyundrive.com/s/(\\S+)");
 
     @Override
     protected void detailContentExt(String content, JSONObject vod) {
         super.detailContentExt(content, vod);
         try {
+            String shareId = null;
             Matcher matcher = aliyun.matcher(content);
             if (matcher.find()) {
-                String shareId = matcher.group(1);
+                shareId = matcher.group(1);
+            } else {
+                matcher = aliyunShort.matcher(content);
+                if (matcher.find()) {
+                    shareId = matcher.group(1);
+                    SpiderReqResult resp = SpiderReq.get(SpiderOKClient.noRedirectClient(), new SpiderUrl("https://alywp.net/" + shareId, null));
+                    shareId = SpiderOKClient.getRedirectLocation(resp.headers);
+                    if (shareId != null) {
+                        matcher = aliyunUrl.matcher(shareId);
+                        if (matcher.find()) {
+                            shareId = matcher.group(1);
+                        }
+                    }
+                }
+            }
+            if (shareId != null) {
                 String shareToken = getShareTk(shareId, "");
                 ArrayList<String> vodItems = new ArrayList<>();
                 accessTk = "";
