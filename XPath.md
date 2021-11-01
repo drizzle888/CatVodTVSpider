@@ -143,7 +143,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/555.json"
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/555.json"
 },
 {
      "key": "csp_xpath_sky4k",
@@ -153,7 +153,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/sky4k.json"
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/sky4k.json"
 },
 {
      "key": "csp_xpath_4kyu",
@@ -163,7 +163,7 @@
      "searchable": 1,
      "quickSearch": 1,
      "filterable": 0,
-     "ext": "https://cdn.jsdelivr.net/gh/catvod/CatVodTVSpider@master/xpath/4kyu.json"
+     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/4kyu.json"
 }
 
 ```
