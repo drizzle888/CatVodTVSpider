@@ -166,34 +166,34 @@
      "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/4kyu.json"
 },
 {
-	"key":"csp_xpath_miniku",
-	"name":"miniku(XPath)",
-	"type":3,
-	"api":"csp_XPath",
-	"searchable":1,
-	"quickSearch":1,
-	"filterable": 0,
-	"ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/miniku.json"
+     "key":"csp_xpath_miniku",
+     "name":"miniku(XPath)",
+     "type":3,
+     "api":"csp_XPath",
+     "searchable":1,
+     "quickSearch":1,
+     "filterable": 0,
+     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/miniku.json"
 },
 {
-	"key":"csp_xpath_pianba",
-	"name":"Pianba(XPath)",
-	"type":3,
-	"api":"csp_XPath",
-	"searchable":1,
-	"quickSearch":1,
-	"filterable": 0,
-	"ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/pianba.json"
+     "key":"csp_xpath_pianba",
+     "name":"Pianba(XPath)",
+     "type":3,
+     "api":"csp_XPath",
+     "searchable":1,
+     "quickSearch":1,
+     "filterable": 0,
+     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/pianba.json"
 },
 {
-	"key":"csp_xpath_Ole",
-	"name":"Ole(EXO)",
-	"type":3,
-	"api":"csp_XPath",
-	"searchable":1,
-	"quickSearch":1,
-	"filterable": 0,
-	"ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/olevod.json"
+     "key":"csp_xpath_Ole",
+     "name":"Ole(EXO)",
+     "type":3,
+     "api":"csp_XPath",
+     "searchable":1,
+     "quickSearch":1,
+     "filterable": 0,
+     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/olevod.json"
 }
 
 ```
