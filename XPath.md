@@ -173,7 +173,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/miniku.json"
+     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/miniku.json"
 },
 {
      "key":"csp_xpath_pianba",
@@ -183,7 +183,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/pianba.json"
+     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/pianba.json"
 },
 {
      "key":"csp_xpath_Ole",
@@ -193,7 +193,7 @@
      "searchable":1,
      "quickSearch":1,
      "filterable": 0,
-     "ext":"https://raw.githubusercontent.com/Tangsan99999/CatVodTVSpider/master/xpath/olevod.json"
+     "ext":"https://cdn.jsdelivr.net/gh/Tangsan99999/CatVodTVSpider@master/xpath/olevod.json"
 }
 
 ```
