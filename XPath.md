@@ -167,7 +167,7 @@
 },
 {
      "key":"csp_xpath_miniku",
-     "name":"miniku(XPath)",
+     "name":"Miniku(XPath)",
      "type":3,
      "api":"csp_XPath",
      "searchable":1,
