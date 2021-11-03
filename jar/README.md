@@ -102,7 +102,7 @@
   },
   {
     "key": "csp_EPangApp",
-    "name": "阿房影视App",
+    "name": "阿房影视App(已废弃)",
     "type": 3,
     "api": "csp_EPangApp",
     "searchable": 1,
