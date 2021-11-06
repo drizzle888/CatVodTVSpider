@@ -464,6 +464,7 @@ public class Auete extends Spider {
                                 //byte[] base64Data = Base64.getDecoder().decode(plist2[0]);
                                 //player = new String(base64Data, "utf-8");
                             }
+                            
                             if (!player.startsWith("http")) {
                                 player = siteUrl + player;
                             }
