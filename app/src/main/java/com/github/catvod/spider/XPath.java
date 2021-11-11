@@ -103,6 +103,9 @@ public class XPath extends Spider {
                 SpiderDebug.log(e);
             }
             result.put("class", classes);
+            if (filter && rule.getFilter() != null) {
+                result.put("filters", rule.getFilter());
+            }
             return result.toString();
         } catch (
                 Exception e) {
@@ -129,7 +132,7 @@ public class XPath extends Spider {
         return "";
     }
 
-    protected String categoryUrl(String tid, String pg) {
+    protected String categoryUrl(String tid, String pg, boolean filter, HashMap<String, String> extend) {
         return rule.getCateUrl().replace("{cateId}", tid).replace("{catePg}", pg);
     }
 
@@ -137,7 +140,7 @@ public class XPath extends Spider {
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) {
         try {
             fetchRule();
-            String webUrl = categoryUrl(tid, pg);
+            String webUrl = categoryUrl(tid, pg, filter, extend);
             SpiderReqResult srr = fetch(webUrl);
             JSONArray videos = new JSONArray();
             JXDocument doc = JXDocument.create(srr.content);
@@ -352,6 +355,9 @@ public class XPath extends Spider {
     public String searchContent(String key, boolean quick) {
         try {
             fetchRule();
+            if (rule.getSearchUrl().isEmpty()) {
+                return "";
+            }
             String webUrl = rule.getSearchUrl().replace("{wd}", URLEncoder.encode(key));
             SpiderDebug.log(webUrl);
             SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));

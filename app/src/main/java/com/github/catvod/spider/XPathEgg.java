@@ -17,7 +17,7 @@ public class XPathEgg extends XPath {
     }
 
     @Override
-    protected String categoryUrl(String tid, String pg) {
+    protected String categoryUrl(String tid, String pg, boolean filter, HashMap<String, String> extend) {
         if (Integer.parseInt(pg) <= 1) {
             return rule.getCateUrl().replace("{cateId}", tid);
         }
