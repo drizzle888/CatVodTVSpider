@@ -29,15 +29,6 @@
     "filterable": 1
   },
   {
-    "key": "csp_EPang",
-    "name": "阿房影视(已废弃)",
-    "type": 3,
-    "api": "csp_EPang",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
     "key": "csp_Auete",
     "name": "Auete",
     "type": 3,
@@ -83,28 +74,10 @@
     "filterable": 0
   },
   {
-    "key": "csp_Ubo",
-    "name": "U播影视(已废弃)",
-    "type": 3,
-    "api": "csp_Ubo",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
     "key": "csp_Nekk",
     "name": "9E看看",
     "type": 3,
     "api": "csp_Nekk",
-    "searchable": 1,
-    "quickSearch": 0,
-    "filterable": 1
-  },
-  {
-    "key": "csp_EPangApp",
-    "name": "阿房影视App(已废弃)",
-    "type": 3,
-    "api": "csp_EPangApp",
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
