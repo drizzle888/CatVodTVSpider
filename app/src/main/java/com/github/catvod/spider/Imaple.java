@@ -96,7 +96,7 @@ public class Imaple extends Spider {
             ArrayList<String> allClass = new ArrayList<>();
             for (Element ele : elements) {
                 String name = ele.text();
-                boolean show = !filter || (name.equals("電影") || name.equals("電視劇") || name.equals("綜藝") || name.equals("動漫") || name.equals("倫理片"));
+                boolean show = !filter || (name.equals("電影") || name.equals("電視劇") || name.equals("綜藝") || name.equals("動漫"));
                 if (allClass.contains(name))
                     show = false;
                 if (show) {
