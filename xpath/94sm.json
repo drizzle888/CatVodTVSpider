@@ -1,5 +1,6 @@
 {
   "ua": "",
+  
   "homeUrl": "http://www.9rmb.com",
   "cateNode": "//ul[contains(@class,'navbar-nav')]/li/a[contains(@href, '.html') and not(contains(@href, '6'))]",
   "cateName": "/text()",
