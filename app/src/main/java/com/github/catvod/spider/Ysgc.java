@@ -326,6 +326,16 @@ public class Ysgc extends Spider {
                 }
                 return result.toString();
             }
+            if (vipFlags.contains(flag)) {
+                try {
+                    result.put("parse", 1);
+                    result.put("playUrl", "");
+                    result.put("url", id);
+                    return result.toString();
+                } catch (Exception ee) {
+                    SpiderDebug.log(ee);
+                }
+            }
             JSONObject playerObj = playerConfig.getJSONObject(flag);
             String parseUrl = playerObj.getString("parse_api") + id;
             SpiderUrl su = new SpiderUrl(parseUrl, getHeaderJxs(parseUrl));
