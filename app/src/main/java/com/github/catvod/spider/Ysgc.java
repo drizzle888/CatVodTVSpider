@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 影视工厂
@@ -287,11 +289,58 @@ public class Ysgc extends Spider {
     @Override
     public String playerContent(String flag, String id, List<String> vipFlags) {
         try {
+            JSONObject result = new JSONObject();
+            if (id.contains("hsl.ysgc.xyz")) {
+                String uuu = "https://www.ysgc.cc/static/player/dplayer.php?url=" + id;
+                HashMap<String, String> headers = new HashMap();
+                headers.put("referer", "https://www.ysgc.cc/");
+                SpiderReqResult srr = SpiderReq.get(new SpiderUrl(uuu, headers));
+                Matcher matcher = Pattern.compile("url: url\\+'(.+?)',").matcher(srr.content);
+                if (matcher.find()) {
+                    result.put("parse", 0);
+                    result.put("playUrl", "");
+                    result.put("url", id + matcher.group(1));
+                    result.put("header", "{\"Referer\":\" https://www.ysgc.cc\"}");
+                } else {
+                    result.put("parse", 1);
+                    result.put("playUrl", "");
+                    result.put("url", uuu);
+                    result.put("header", "{\"Referer\":\"https://www.ysgc.cc/\"}");
+                }
+                return result.toString();
+            } else if (id.contains("duoduozy.com")) {
+                String uuu = "https://player.duoduozy.com/ddplay/?url=" + id;
+                HashMap<String, String> headers = new HashMap();
+                headers.put("referer", "https://www.duoduozy.com/");
+                SpiderReqResult srr = SpiderReq.get(new SpiderUrl(uuu, headers));
+                Matcher matcher = Pattern.compile("var urls.+?\"(.+?)\"").matcher(srr.content);
+                if (matcher.find()) {
+                    result.put("parse", 0);
+                    result.put("playUrl", "");
+                    result.put("url", matcher.group(1));
+                } else {
+                    result.put("parse", 1);
+                    result.put("playUrl", "");
+                    result.put("url", id);
+                    result.put("header", "{\"Referer\":\"https://www.duoduozy.com/\"}");
+                }
+                return result.toString();
+            }
+            if (vipFlags.contains(flag)) {
+                try {
+                    result.put("parse", 1);
+                    result.put("playUrl", "");
+                    result.put("url", id);
+                    return result.toString();
+                } catch (Exception ee) {
+                    SpiderDebug.log(ee);
+                }
+            }
             JSONObject playerObj = playerConfig.getJSONObject(flag);
             String parseUrl = playerObj.getString("parse_api") + id;
             SpiderUrl su = new SpiderUrl(parseUrl, getHeaderJxs(parseUrl));
             SpiderReqResult srr = SpiderReq.get(su);
-            JSONObject result = new JSONObject();
+
             JSONObject playerData = new JSONObject(srr.content);
             JSONObject headers = new JSONObject();
             String ua = playerData.optString("user-agent", "");
