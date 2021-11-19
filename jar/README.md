@@ -7,6 +7,11 @@
 ```json
 
 "spider": "https://github.com/catvod/CatVodTVSpider/blob/master/jar/custom_spider.jar?raw=true",
+
+国内镜像
+
+"spider": "https://litecucumber.coding.net/p/cat/d/config/git/raw/master/custom_spider.txt",
+
 ......
 "sites": [
 ......
@@ -117,6 +122,15 @@
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
+  },
+  {
+    "key": "csp_YydsAli1",
+    "name": "YYDS阿里(爬虫)",
+    "type": 3,
+    "api": "csp_YydsAli1",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 0
   }
 ......
 ],
