@@ -117,6 +117,15 @@
     "searchable": 1,
     "quickSearch": 0,
     "filterable": 1
+  },
+  {
+    "key": "csp_YydsAli",
+    "name": "YYDS阿里(爬虫)",
+    "type": 3,
+    "api": "csp_YydsAli1",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 0
   }
 ......
 ],
