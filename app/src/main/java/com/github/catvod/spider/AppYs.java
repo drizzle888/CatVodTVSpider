@@ -440,8 +440,10 @@ public class AppYs extends Spider {
         } else if (URL.contains("api.php/app") || URL.contains("xgapp.php/v1")) {
             return URL + "search?text=" + KEY + "&pg=";
         } else if (urlPattern1.matcher(URL).find()) {
-            if (URL.contains("fit:8")
+            if (URL.contains("lxue")
+                    || URL.contains("jdys.weetai.cn")
                     || URL.contains("haokanju1")
+                    || URL.contains("fit:8")
                     || URL.contains("zjj.life")
                     || URL.contains("love9989")
                     || URL.contains("8d8q")
@@ -835,10 +837,10 @@ public class AppYs extends Spider {
             } else if (flag.contains("番茄")) {
                 parseUrl = "http://www.1080kan.cc/jiexi/fq.php?url=";
             } else {
-                parseUrl = "https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=bgjnopvDHPUY035689&url=";
+                parseUrl = "https://jx.parwix.com:4433/player/?url=";
             }
         } else if (parseUrl.contains("jhsj.manduhu.com") || parseUrl.contains("v.jhdyw.vip/nhdz666")) {
-            parseUrl = "https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=bgjnopvDHPUY035689&url=";
+            parseUrl = "https://jx.parwix.com:4433/player/?url=";
         }
         return parseUrl;
     }
@@ -856,7 +858,7 @@ public class AppYs extends Spider {
                     return "https://www.baidu.com/s?wd=" + playUrl;
                 } else if (playUrl.contains("www.bilibili.com")) {
                     String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=bgjnopvDHPUY035689&url=" + spUrl;
+                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
                 } else {
                     return "https://www.baidu.com/s?wd=" + playUrl + "&app=10000&account=272775028&password=qq272775028";
                 }
@@ -865,7 +867,7 @@ public class AppYs extends Spider {
                     return "https://www.baidu.com/s?wd=" + playUrl;
                 } else if (playUrl.contains("www.bilibili.com")) {
                     String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=bgjnopvDHPUY035689&url=" + spUrl;
+                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
                 } else {
                     String spUrl = playUrl.split("url=")[1];
                     return "https://www.baidu.com/s?wd=https://vip123kan.vip/m3u8.php?url=" + spUrl;
@@ -873,7 +875,7 @@ public class AppYs extends Spider {
             } else {
                 if (playUrl.contains("www.bilibili.com")) {
                     String spUrl = playUrl.split("url=")[1];
-                    return "https://www.baidu.com/s?wd=https://api.m3u8.tv:5678/home/api?type=ys&uid=233711&key=bgjnopvDHPUY035689&url=" + spUrl;
+                    return "https://www.baidu.com/s?wd=https://jx.parwix.com:4433/player/?url=" + spUrl;
                 } else {
                     return "https://www.baidu.com/s?wd=" + playUrl;
                 }
