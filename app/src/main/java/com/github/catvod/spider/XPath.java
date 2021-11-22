@@ -447,7 +447,7 @@ public class XPath extends Spider {
 
     @Override
     public boolean manualVideoCheck() {
-        return true;
+        return false;
     }
 
     private String[] videoFormatList = new String[]{".m3u8", ".mp4", ".mpeg", ".flv"};
