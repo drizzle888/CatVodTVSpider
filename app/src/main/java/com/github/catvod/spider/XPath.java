@@ -359,9 +359,7 @@ public class XPath extends Spider {
                 return "";
             }
             String webUrl = rule.getSearchUrl().replace("{wd}", URLEncoder.encode(key));
-            SpiderDebug.log(webUrl);
-            SpiderUrl su = new SpiderUrl(webUrl, getHeaders(webUrl));
-            SpiderReqResult srr = SpiderReq.get(su);
+            SpiderReqResult srr = fetch(webUrl);
             JSONObject result = new JSONObject();
             JSONArray videos = new JSONArray();
             // add maccms suggest search api support
