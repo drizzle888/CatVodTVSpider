@@ -79,10 +79,10 @@
     "key": "csp_xpath_tvci",
     "name": "大师兄(XPath)",
     "type": 3,
-    "api": "csp_XPath",
+    "api": "csp_XPathFilter",
     "searchable": 1,
     "quickSearch": 1,
-    "filterable": 0,
+    "filterable": 1,
     "ext": "https://cdn.jsdelivr.net/gh/lite-cucumber/CatVodTVSpider@master/xpath/tvci.json"
 },
 {

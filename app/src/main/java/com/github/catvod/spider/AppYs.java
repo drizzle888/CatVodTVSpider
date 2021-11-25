@@ -8,7 +8,7 @@ import com.github.catvod.crawler.SpiderDebug;
 import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
-import com.github.catvod.okhttp.SpiderOKClient;
+import com.github.catvod.utils.SpiderOKClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
