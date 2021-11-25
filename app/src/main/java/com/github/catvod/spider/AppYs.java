@@ -9,7 +9,6 @@ import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
 import com.github.catvod.utils.SpiderOKClient;
-import com.github.catvod.utils.VipCheck;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -341,7 +340,7 @@ public class AppYs extends Spider {
             String parseUrl = getParseUrl(apiUrl, flag);
             String playerUrl = getPlayerUrl(apiUrl, parseUrl, id);
             JSONObject result = new JSONObject();
-            getFinalVideo(id, playerUrl, result);
+            getFinalVideo(playerUrl, result);
             return result.toString();
         } catch (Exception e) {
             SpiderDebug.log(e);
@@ -647,7 +646,7 @@ public class AppYs extends Spider {
             JSONArray vodUrlWithPlayer = data.getJSONArray("vod_url_with_player");
             for (int i = 0; i < vodUrlWithPlayer.length(); i++) {
                 JSONObject from = vodUrlWithPlayer.getJSONObject(i);
-                String flag = from.getString("name");
+                String flag = stopVipFlag(from.getString("name"));
                 playFlags.add(flag);
                 playUrls.add(from.getString("url"));
                 String purl = from.optString("parse_api");
@@ -671,7 +670,7 @@ public class AppYs extends Spider {
             JSONArray vodUrlWithPlayer = data.getJSONArray("vod_url_with_player");
             for (int i = 0; i < vodUrlWithPlayer.length(); i++) {
                 JSONObject from = vodUrlWithPlayer.getJSONObject(i);
-                String flag = from.getString("name");
+                String flag = stopVipFlag(from.getString("name"));
                 playFlags.add(flag);
                 playUrls.add(from.getString("url"));
                 String purl = from.optString("parse_api");
@@ -697,7 +696,7 @@ public class AppYs extends Spider {
             JSONArray vodUrlWithPlayer = data.getJSONArray("vod_play_list");
             for (int i = 0; i < vodUrlWithPlayer.length(); i++) {
                 JSONObject from = vodUrlWithPlayer.getJSONObject(i);
-                String flag = from.getJSONObject("player_info").getString("show");
+                String flag = stopVipFlag(from.getJSONObject("player_info").getString("show"));
                 playFlags.add(flag);
                 playUrls.add(from.getString("url"));
                 try {
@@ -783,7 +782,7 @@ public class AppYs extends Spider {
                     JSONObject urlObj = playListUrls.getJSONObject(j);
                     urls.add(urlObj.getString("title") + "$" + urlObj.getString("url"));
                 }
-                playFlags.add(from);
+                playFlags.add(stopVipFlag(from));
                 playUrls.add(TextUtils.join("#", urls));
             }
         }
@@ -794,6 +793,29 @@ public class AppYs extends Spider {
 //        }
         vod.put("vod_play_from", TextUtils.join("$$$", playFlags));
         vod.put("vod_play_url", TextUtils.join("$$$", playUrls));
+    }
+
+    private static HashMap<String, String> fakeVips = null;
+
+    private String stopVipFlag(String flag) {
+        if (fakeVips == null) {
+            fakeVips = new HashMap<>();
+            fakeVips.put("youku", "优酷M");
+            fakeVips.put("qq", "腾讯M");
+            fakeVips.put("iqiyi", "爱奇艺M");
+            fakeVips.put("qiyi", "奇艺M");
+            fakeVips.put("letv", "乐视M");
+            fakeVips.put("sohu", "搜狐M");
+            fakeVips.put("tudou", "土豆M");
+            fakeVips.put("pptv", "PPTVM");
+            fakeVips.put("mgtv", "芒果TVM");
+            fakeVips.put("wasu", "华数M");
+            fakeVips.put("bilibili", "哔哩M");
+        }
+        if (fakeVips.containsKey(flag)) {
+            return fakeVips.get(flag);
+        }
+        return flag;
     }
 
     private String getParseUrl(String URL, String flag) {
@@ -864,7 +886,7 @@ public class AppYs extends Spider {
     }
 
     // ######视频地址
-    private void getFinalVideo(String vodUrl, String uu, JSONObject result) throws JSONException {
+    private void getFinalVideo(String uu, JSONObject result) throws JSONException {
         if (uu.contains("baidu.com")) {
             String playurl = uu.split("wd=")[1];
             if (playurl.contains("duoduozy.com")) {
@@ -1047,11 +1069,6 @@ public class AppYs extends Spider {
             result.put("parse", 1);
             result.put("playUrl", "");
             result.put("url", uu);
-        }
-        // 官源WebView解析默认转向使用APP内置解析
-        if (result.optInt("parse", 0) == 1 && VipCheck.isVip(vodUrl)) {
-            result.put("jx", "1");
-            result.put("url", vodUrl);
         }
     }
 
