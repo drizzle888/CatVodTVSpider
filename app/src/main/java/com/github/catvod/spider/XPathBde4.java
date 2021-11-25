@@ -6,7 +6,7 @@ import com.github.catvod.crawler.SpiderDebug;
 import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
-import com.github.catvod.okhttp.SSLSocketFactoryCompat;
+import com.github.catvod.utils.SSLSocketFactoryCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
