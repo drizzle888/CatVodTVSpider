@@ -51,6 +51,7 @@ public class JsonParallel {
                             taskResult.put("header", headers);
                             taskResult.put("url", jsonPlayData.getString("url"));
                             taskResult.put("jxFrom", jxName);
+                            SpiderDebug.log(taskResult.toString());
                             return taskResult;
                         } catch (Throwable th) {
                             SpiderDebug.log(th);
