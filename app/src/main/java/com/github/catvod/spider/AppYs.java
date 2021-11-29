@@ -9,6 +9,7 @@ import com.github.catvod.crawler.SpiderReq;
 import com.github.catvod.crawler.SpiderReqResult;
 import com.github.catvod.crawler.SpiderUrl;
 import com.github.catvod.utils.SpiderOKClient;
+import com.github.catvod.utils.Misc;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -383,29 +384,65 @@ public class AppYs extends Spider {
     }
 
     private static HashMap<String, JSONObject> sites = new HashMap<>();
+    private static HashMap<String, String> fakeVips = null;
+    private static final Object lock = new Object();
 
-    protected void fetchRule() {
-        if (sites.size() == 0) {
-            try {
-                SpiderUrl su = new SpiderUrl("https://litecucumber.coding.net/p/cat/d/config/git/raw/master/appys.json", null);
-                String json = SpiderReq.get(su).content.replaceAll("\\s", "");
-                JSONArray sources = new JSONObject(json).optJSONArray("data");
-                for (int i = 0; i < sources.length(); i++) {
-                    JSONArray list = sources.getJSONObject(i).getJSONArray("list");
-                    String title = sources.getJSONObject(i).getString("title");
-                    Matcher matcher = Pattern.compile(".+\\((.+)\\)").matcher(title);
-                    if (matcher.find()) {
-                        title = matcher.group(1);
+    private static String stopVipFlag(String flag) {
+        synchronized (lock) {
+            if (fakeVips == null) {
+                fakeVips = new HashMap<>();
+                fakeVips.put("youku", "优酷M");
+                fakeVips.put("qq", "腾讯M");
+                fakeVips.put("iqiyi", "爱奇艺M");
+                fakeVips.put("qiyi", "奇艺M");
+                fakeVips.put("letv", "乐视M");
+                fakeVips.put("sohu", "搜狐M");
+                fakeVips.put("tudou", "土豆M");
+                fakeVips.put("pptv", "PPTVM");
+                fakeVips.put("mgtv", "芒果TVM");
+                fakeVips.put("wasu", "华数M");
+                fakeVips.put("bilibili", "哔哩M");
+            }
+            if (fakeVips.containsKey(flag)) {
+                return fakeVips.get(flag);
+            }
+            return flag;
+        }
+    }
+
+    public static String[] getExtKeys() {
+        fetchRule();
+        synchronized (lock) {
+            String[] array = new String[sites.size()];
+            sites.keySet().toArray(array);
+            return array;
+        }
+    }
+
+    public static void fetchRule() {
+        synchronized (lock) {
+            if (sites.size() == 0) {
+                try {
+                    SpiderUrl su = new SpiderUrl("https://litecucumber.coding.net/p/cat/d/config/git/raw/master/appys.json", null);
+                    String json = SpiderReq.get(su).content.replaceAll("\\s", "");
+                    JSONArray sources = new JSONObject(json).optJSONArray("data");
+                    for (int i = 0; i < sources.length(); i++) {
+                        JSONArray list = sources.getJSONObject(i).getJSONArray("list");
+                        String title = sources.getJSONObject(i).getString("title");
+                        Matcher matcher = Pattern.compile(".+\\((.+)\\)").matcher(title);
+                        if (matcher.find()) {
+                            title = matcher.group(1);
+                        }
+                        for (int j = 0; j < list.length(); j++) {
+                            JSONObject obj = list.getJSONObject(j);
+                            String scName = obj.optString("title");
+                            sites.put(title + "_" + scName, obj);
+                            SpiderDebug.log("{\"key\":\"csp_appys_" + title + "_" + scName + "\", \"name\":\"" + scName + "(M)\", \"type\":3, \"api\":\"csp_AppYs\",\"searchable\":1,\"quickSearch\":0,\"filterable\":1,\"ext\":\"" + title + "_" + scName + "\"},");
+                        }
                     }
-                    for (int j = 0; j < list.length(); j++) {
-                        JSONObject obj = list.getJSONObject(j);
-                        String scName = obj.optString("title");
-                        sites.put(title + "_" + scName, obj);
-                        SpiderDebug.log("{\"key\":\"csp_appys_" + title + "_" + scName + "\", \"name\":\"" + scName + "(M)\", \"type\":3, \"api\":\"csp_AppYs\",\"searchable\":1,\"quickSearch\":0,\"filterable\":1,\"ext\":\"" + title + "_" + scName + "\"},");
-                    }
+                } catch (Exception e) {
+                    SpiderDebug.log(e);
                 }
-            } catch (Exception e) {
-                SpiderDebug.log(e);
             }
         }
     }
@@ -471,7 +508,6 @@ public class AppYs extends Spider {
     }
 
     // ######UA
-    private static Pattern snifferMatch = Pattern.compile("http((?!http).){26,}?\\.(m3u8|mp4)\\?.*|http((?!http).){26,}\\.(m3u8|mp4)|http((?!http).){26,}?/m3u8\\?pt=m3u8.*|http((?!http).)*?default\\.ixigua\\.com/.*|http((?!http).)*?cdn-tos[^\\?]*|http((?!http).)*?/obj/tos[^\\?]*|http.*?/player/m3u8play\\.php\\?url=.*|http.*?/player/.*?[pP]lay\\.php\\?url=.*|http.*?/playlist/m3u8/\\?vid=.*|http.*?\\.php\\?type=m3u8&.*|http.*?/download.aspx\\?.*|http.*?/api/up_api.php\\?.*|https.*?\\.66yk\\.cn.*");
     private static Pattern urlPattern1 = Pattern.compile("api\\.php/.*?/vod");
     private static Pattern urlPattern2 = Pattern.compile("api\\.php/.+?\\.vod");
     private static Pattern parsePattern = Pattern.compile("/.+\\?.+=");
@@ -795,29 +831,6 @@ public class AppYs extends Spider {
         vod.put("vod_play_url", TextUtils.join("$$$", playUrls));
     }
 
-    private static HashMap<String, String> fakeVips = null;
-
-    private String stopVipFlag(String flag) {
-        if (fakeVips == null) {
-            fakeVips = new HashMap<>();
-            fakeVips.put("youku", "优酷M");
-            fakeVips.put("qq", "腾讯M");
-            fakeVips.put("iqiyi", "爱奇艺M");
-            fakeVips.put("qiyi", "奇艺M");
-            fakeVips.put("letv", "乐视M");
-            fakeVips.put("sohu", "搜狐M");
-            fakeVips.put("tudou", "土豆M");
-            fakeVips.put("pptv", "PPTVM");
-            fakeVips.put("mgtv", "芒果TVM");
-            fakeVips.put("wasu", "华数M");
-            fakeVips.put("bilibili", "哔哩M");
-        }
-        if (fakeVips.containsKey(flag)) {
-            return fakeVips.get(flag);
-        }
-        return flag;
-    }
-
     private String getParseUrl(String URL, String flag) {
         String parseUrl = "";
         if (urlPattern2.matcher(URL).find()) {
@@ -1079,6 +1092,6 @@ public class AppYs extends Spider {
 
     @Override
     public boolean isVideoFormat(String url) {
-        return snifferMatch.matcher(url).find();
+        return Misc.isVideoFormat(url);
     }
 }
